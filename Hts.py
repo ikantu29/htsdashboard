@@ -18,9 +18,11 @@ def login():
         </style>
     """, unsafe_allow_html=True)
 
-    # Show logo
-    st.image("ucmb-logo1.jpg", width=150)
-
+    # Show logo safely
+    try:
+        st.image("ucmb-logo1.jpg", width=150)
+    except FileNotFoundError:
+        st.warning("Logo not found. Please ensure 'ucmb-logo1.jpg' is in the app directory.")
 
     st.title("UEC West Nile Surge Dashboard Login")
 
@@ -42,10 +44,14 @@ def login():
 # --------- Load Excel Data ---------
 @st.cache_data
 def load_data():
-    df = pd.read_excel(
-        "West Nile New Surge Tracking Dashboard.xlsx",
-        sheet_name="HTS"
-    )
+    try:
+        df = pd.read_excel("West Nile New Surge Tracking Dashboard.xlsx", sheet_name="HTS")
+    except FileNotFoundError:
+        st.error("Excel file not found. Please upload 'West Nile New Surge Tracking Dashboard.xlsx' to the app directory.")
+        return pd.DataFrame()
+    except Exception as e:
+        st.error(f"An error occurred while reading the Excel file: {e}")
+        return pd.DataFrame()
     return df
 
 # --------- Dashboard ---------
@@ -59,6 +65,10 @@ def dashboard():
         st.rerun()
 
     df = load_data()
+
+    if df.empty:
+        st.warning("No data to display.")
+        return
 
     # Format % columns
     percent_columns = [col for col in df.columns if "%" in str(col)]

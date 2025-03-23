@@ -19,7 +19,7 @@ def login():
     """, unsafe_allow_html=True)
 
     # Show logo
-    st.image(r"C:\Users\Dell\Desktop\PIRS REPORTS\Weekly surge tracking\ucmb-logo1.jpg", width=150)
+    st.image("ucmb-logo1.jpg", width=150)
 
     st.title("UEC West Nile Surge Dashboard Login")
 

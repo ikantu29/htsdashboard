@@ -45,7 +45,11 @@ def login():
 @st.cache_data
 def load_data():
     try:
-        df = pd.read_excel("West Nile New Surge Tracking Dashboard.xlsx", sheet_name="HTS")
+        import openpyxl  # Ensure openpyxl is available
+        df = pd.read_excel("West Nile New Surge Tracking Dashboard.xlsx", sheet_name="HTS", engine="openpyxl")
+    except ImportError:
+        st.error("Missing required package 'openpyxl'. Please ensure it is listed in requirements.txt.")
+        return pd.DataFrame()
     except FileNotFoundError:
         st.error("Excel file not found. Please upload 'West Nile New Surge Tracking Dashboard.xlsx' to the app directory.")
         return pd.DataFrame()

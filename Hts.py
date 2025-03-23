@@ -21,6 +21,7 @@ def login():
     # Show logo
     st.image("ucmb-logo1.jpg", width=150)
 
+
     st.title("UEC West Nile Surge Dashboard Login")
 
     # Login form
@@ -34,7 +35,7 @@ def login():
                 st.session_state["authenticated"] = True
                 st.session_state["username"] = username
                 st.success("✅ Login successful. Loading dashboard...")
-                st.experimental_rerun()
+                st.rerun()
             else:
                 st.error("❌ Invalid username or password")
 
@@ -55,7 +56,7 @@ def dashboard():
     if st.button("🔓 Logout"):
         st.session_state["authenticated"] = False
         st.session_state["username"] = ""
-        st.experimental_rerun()
+        st.rerun()
 
     df = load_data()
 

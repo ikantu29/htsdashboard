@@ -43,7 +43,7 @@ def login():
 @st.cache_data
 def load_data():
     df = pd.read_excel(
-        r"C:\Users\Dell\Desktop\PIRS REPORTS\Weekly surge tracking\West Nile New Surge Tracking Dashboard.xlsx",
+        "West Nile New Surge Tracking Dashboard.xlsx",
         sheet_name="HTS"
     )
     return df
